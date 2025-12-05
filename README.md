@@ -1,5 +1,5 @@
 # jnvm
-A virtual machine for the Juno programming language, heavily inspired by JVM.
+A virtual machine for the Juno programming language, inspired by JVM.
 
 # Example
 Let's test this simple Juno program.
