@@ -7,6 +7,12 @@
 
 namespace jnvm
 {
+    class JNVMError final : public std::runtime_error
+    {
+    public:
+        explicit JNVMError( const std::string &Message ) : runtime_error( "[jnvm] runtime error: " + Message ) { }
+    };
+
     ///@brief A class to hold information about a function when it is invoked.
     class StackFrame
     {

@@ -26,7 +26,13 @@ std::int32_t main( )
 
     jnvm::Machine machine { b.get_bytecode(  ) };
 
-    machine.execute( );
+    try
+    {
+        machine.execute( );
+    } catch ( std::exception& e )
+    {
+        std::println("{}", e.what(  ));
+    }
 
     return EXIT_SUCCESS;
 }

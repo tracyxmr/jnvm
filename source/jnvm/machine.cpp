@@ -27,6 +27,9 @@ void jnvm::Machine::execute_bipush( )
         advance(  );
         const auto operand { m_bytecode[ m_pc++ ] };
         m_current_frame->push( operand );
+    } else
+    {
+        throw JNVMError("stack underflow");
     }
 }
 
@@ -41,6 +44,9 @@ void jnvm::Machine::execute_istore( )
 
         m_current_frame->operand_stack.pop_back(  );
         m_current_frame->set_local( idx, value );
+    } else
+    {
+        throw JNVMError("stack underflow");
     }
 }
 
@@ -54,6 +60,9 @@ void jnvm::Machine::execute_iload( )
         const auto value { m_current_frame->get_local( idx ) };
 
         m_current_frame->push( value );
+    } else
+    {
+        throw JNVMError("stack underflow");
     }
 }
 
@@ -67,5 +76,8 @@ void jnvm::Machine::execute_iadd( )
         const auto result { value1 + value2 };
 
         m_current_frame->push( result );
+    } else
+    {
+        throw JNVMError("stack underflow");
     }
 }

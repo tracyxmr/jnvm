@@ -52,40 +52,47 @@ namespace jnvm
                     {
                         ptr++;
                         const auto operand { m_bytecode[ ptr++ ] };
-                        output += std::format("| {:0>4} | {:^15} | {:^15} |\n", ptr - 1, "bipush", std::format("immediate {}", operand));
+                        output += std::format("│ {:0>5} │ {:^15} │ {:^14} │\n", ptr - 1, "bipush", std::format("immediate {}", operand));
                         break;
                     }
                     case Opcode::ISTORE:
                     {
                         ptr++;
                         const auto operand { m_bytecode[ ptr++ ] };
-                        output += std::format("| {:0>4} | {:^15} | {:^15} |\n", ptr - 1, "istore", std::format("index {}", operand));
+                        output += std::format("│ {:0>5} │ {:^15} │ {:^14} │\n", ptr - 1, "istore", std::format("index {}", operand));
                         break;
                     }
                     case Opcode::ILOAD:
                     {
                         ptr++;
                         const auto operand { m_bytecode[ ptr++ ] };
-                        output += std::format("| {:0>4} | {:^15} | {:^15} |\n", ptr - 1, "iload", std::format("index {}", operand));
+                        output += std::format("│ {:0>5} │ {:^15} │ {:^14} │\n", ptr - 1, "iload", std::format("index {}", operand));
                         break;
                     }
                     case Opcode::IADD:
                     {
-                        output += std::format("| {:0>4} | {:^15} | {:^15} |\n", ptr, "iadd", "");
+                        output += std::format("│ {:0>5} │ {:^15} │ {:^14} │\n", ptr, "iadd", "");
                         ptr++;
                         break;
                     }
                     default:
                     {
-                        output += std::format("| {:0>4} | {:^15} | {:^15} |\n", ptr - 1, "unknown", std::format("{}", m_bytecode[ptr]));
+                        output += std::format("│ {:0>5} │ {:^15} │ {:^14} │\n", ptr - 1, "unknown", std::format("{}", m_bytecode[ptr]));
                         ptr++;
                         break;
                     }
                 }
             }
 
-            std::println("| {:>4} | {:^15} | {:^15} |", "BCI", "INSTRUCTION", "OPERANDS");
+            output.pop_back(  );
+
+            std::println("┌{:─^42}┐", "");
+            std::println("│{:^42}│", "DISASSEMBLY");
+            std::println("├{:─^42}┤", "");
+            std::println("│ {:>4}  │ {:^15} │ {:^15}│", "BCI", "INSTRUCTION", "OPERANDS");
+            std::println("├{:─^42}┤", "");
             std::println("{}", output);
+            std::println("└{:─^42}┘", "");
         }
     private:
         std::vector< std::uint32_t > m_bytecode;
